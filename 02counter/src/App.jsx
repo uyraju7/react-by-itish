@@ -15,19 +15,12 @@ function App() {
 
   return (
 
-
     <div>
-     
-    
      <h1> hi this my react code {count}</h1>
-
 
         <button onClick={addValue}>    ADD     </button> {" "}
           
         <button onClick={removeValue}>    Remove     </button>
-
-        
-     
        
     </div>
   )

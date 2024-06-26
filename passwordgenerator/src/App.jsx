@@ -1,4 +1,4 @@
-import { useState,useCallback, useEffect} from "react";
+import { useState,useCallback, useEffect , useRef} from "react";
 // import reactLogo from './assets/react.svg'
 // npm run dev
 // import viteLogo from '/vite.svg'
@@ -9,7 +9,7 @@ function App() {
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState(" ");
-
+const passwordRef = useRef()
 
 const generatePassword = useCallback(() => {
 
@@ -36,7 +36,11 @@ useEffect(() => {
 
 }, [length, numberAllowed, charAllowed, generatePassword])
 
+const copyPasswordToClipboard = () => {
 
+  window.navigator.clipboard.writeText(password)
+  passwordRef.current?.select()
+}
 
 
 
@@ -50,9 +54,11 @@ useEffect(() => {
           value={password}
           className="outline-none w-full py-1 px-3 "
           placeholder="password"
+          ref = {passwordRef}
           readOnly
         />
-        <button className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
+        <button onClick={copyPasswordToClipboard}
+        className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
           copy
         </button>
       </div>
@@ -73,7 +79,7 @@ useEffect(() => {
         <div className="flex items-center gap-x-1">
           <input
             type="checkbox"
-            defaultChecked={numberAllowed}
+             defaultChecked={numberAllowed}
             onChange={() => {
               setNumberAllowed((prev) => !prev);
             }}
@@ -85,7 +91,7 @@ useEffect(() => {
         <div className="flex items-center gap-x-1">
           <input
             type="checkbox"
-            defaultChecked={charAllowed}
+            // defaultChecked={charAllowed}
             onChange={() => {
               setCharAllowed((prev) => !prev);
             }}
